@@ -3,10 +3,23 @@
 # Answers
 
 ### 1. All the companies whose name match 'Babelgum'. Retrieve only their `name` field.
+/*
+ * Requires the MongoDB Node.js Driver
+ * https://mongodb.github.io/node-mongodb-native
+ */
 
-db.queries.find(
-  {name: 'Babelgum'}
-)
+const filter = {
+  'name': 'Babelgum'
+};
+
+const client = await MongoClient.connect(
+  'mongodb://localhost:27017/',
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
+const coll = client.db('srocha').collection('companies');
+const cursor = coll.find(filter);
+const result = await cursor.toArray();
+await client.close();
 
 ### 2. All the companies that have more than 5000 employees. Limit the search to 20 companies and sort them by **number of employees**.
 
