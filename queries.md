@@ -40,7 +40,27 @@ await client.close();
 
 ### 3. All the companies founded between 2000 and 2005, both years included. Retrieve only the `name` and `founded_year` fields.
 
-<!-- Your Code Goes Here -->
+const filter = {
+  'founded_year': {
+    '$in': [
+      2000, 2005
+    ]
+  }
+};
+const projection = {
+  'name': 1, 
+  'founded_year': 1
+};
+const limit = 0;
+
+const client = await MongoClient.connect(
+  'mongodb://localhost:27017/',
+  { useNewUrlParser: true, useUnifiedTopology: true }
+);
+const coll = client.db('srocha').collection('companies');
+const cursor = coll.find(filter, { projection, limit });
+const result = await cursor.toArray();
+await client.close();
 
 ### 4. All the companies that had a Valuation Amount of more than 100.000.000 and have been founded before 2010. Retrieve only the `name` and `ipo` fields.
 
