@@ -238,16 +238,31 @@ const limit = 10;
 
 ### 16. All the companies on the 'web' `category` that have more than 4000 employees. Sort them by the amount of employees in ascending order.
 
-<!-- Your Code Goes Here -->
+
+const filter = {
+  '$and': [
+    {
+      'category_code': 'web'
+    }, {
+      'number_of_employees': {
+        '$gt': 4000
+      }
+    }
+  ]
+};
+const sort = {
+  'number_of_employees': 1
+};
+
 
 ### 17. All the companies whose acquisition amount is more than 10.000.000, and currency is 'EUR'.
 
-<!-- Your Code Goes Here -->
+{$and:[{acquisition.price_amount:{$gt:10000000}},{price_currency_code:"EUR"}]} // não entendi esse
 
 ### 18. All the companies that have been acquired on the first trimester of the year. Limit the search to 10 companies, and retrieve only their `name` and `acquisition` fields.
 
-<!-- Your Code Goes Here -->
+Não consegui
 
 ### 19. All the companies that have been founded between 2000 and 2010, but have not been acquired before 2011.
 
-<!-- Your Code Goes Here -->
+{founded_year:{$in: [2000, 2010]}} // não consegui referenciar a acquisition
